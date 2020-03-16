@@ -140,16 +140,20 @@
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/guess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/btn_send"
+                android:onClick="guess"
                 />
             <Button
+                android:id="@+id/replay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/btn_replay"
+                android:onClick="replay"
                 />
         </RelativeLayout>
     </LinearLayout>
@@ -174,7 +178,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/input_bg"
             android:gravity="center"
-            android:text="4"
+
             android:textSize="24sp"
             android:layout_margin="10dp"
             />
@@ -185,7 +189,7 @@
             android:layout_toLeftOf="@id/num4"
             android:background="@drawable/input_bg"
             android:gravity="center"
-            android:text="3"
+
             android:textSize="24sp"
             android:layout_margin="10dp"
             />
@@ -196,7 +200,7 @@
             android:layout_toLeftOf="@id/num3"
             android:background="@drawable/input_bg"
             android:gravity="center"
-            android:text="2"
+
             android:textSize="24sp"
             android:layout_margin="10dp"
             />
@@ -207,7 +211,7 @@
             android:layout_toLeftOf="@id/num2"
             android:background="@drawable/input_bg"
             android:gravity="center"
-            android:text="1"
+
             android:textSize="24sp"
             android:layout_margin="10dp"
             />
@@ -215,6 +219,7 @@
 
 <!--    log區-->
     <TextView
+        android:id="@+id/log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="5678 => 1A0B"
