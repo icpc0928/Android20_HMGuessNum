@@ -9,7 +9,7 @@
 
     tools:context=".MainActivity">
 
-<!--    頂部圖片-->
+<!--頂部區-->
     <ImageView
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -17,27 +17,213 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/title_bg"
         />
-<!--    底部按鈕區-->
-    <TableLayout
+<!--底部按鈕區-->
+    <LinearLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal"
             android:padding="4dp">
 
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_1"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_2"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_3"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_4"
+                android:onClick="btnNum"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
-        </TableRow>
+            <Button
+                android:id="@+id/btn5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_5"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_6"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_7"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_8"
+                android:onClick="btnNum"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
+            <Button
+                android:id="@+id/btn9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_9"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btn0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_0"
+                android:onClick="btnNum"/>
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_back"
+                android:onClick="btnBack"/>
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_clear"
+                android:onClick="btnClear"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/btn_send"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_replay"
+                />
+        </RelativeLayout>
+    </LinearLayout>
 
-    </TableLayout>
+<!--    上方數字顯示區-->
+    <RelativeLayout
+        android:id="@+id/numZone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ShowTime"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/num4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/input_bg"
+            android:gravity="center"
+            android:text="4"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:id="@+id/num3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/num4"
+            android:background="@drawable/input_bg"
+            android:gravity="center"
+            android:text="3"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:id="@+id/num2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/num3"
+            android:background="@drawable/input_bg"
+            android:gravity="center"
+            android:text="2"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:id="@+id/num1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/num2"
+            android:background="@drawable/input_bg"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+    </RelativeLayout>
+
+<!--    log區-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5678 => 1A0B"
+        android:textSize="24sp"
+        android:background="@drawable/board_bg"
+        android:layout_below="@id/numZone"
+        android:layout_above="@id/bottom"
+        android:layout_margin="10dp"
+        />
 
 
 </RelativeLayout>
