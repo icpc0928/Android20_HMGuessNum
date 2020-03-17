@@ -223,11 +223,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="5678 => 1A0B"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:background="@drawable/board_bg"
         android:layout_below="@id/numZone"
         android:layout_above="@id/bottom"
         android:layout_margin="10dp"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarFadeDuration="2000"
         />
 
 

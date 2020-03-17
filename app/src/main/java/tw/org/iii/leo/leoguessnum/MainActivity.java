@@ -1,8 +1,11 @@
 package tw.org.iii.leo.leoguessnum;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private Button guess;
     private TextView log;
     private String answer;
+    private AlertDialog alertDialog = null;
+    private int counter = 0 ,times = 10;
+
 
 
 
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         guess = findViewById(R.id.guess);
         log = findViewById(R.id.log);
+        log.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         initNewGame();
 
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //檢查是否重複按鈕
         CharSequence checkText = ""+n;
-        Log.v("leo","is:"+checkText);
+
         if (!num1.getText().equals(checkText) && !num2.getText().equals(checkText) && !num3.getText().equals(checkText) && !num4.getText().equals(checkText) ){
             chooseNum(n,i);
         }
@@ -83,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return i;
     }
-
-
-
     //輸入按鈕
     public void chooseNum(int n,int i){
 
@@ -108,9 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
-
 
     // <- 刪除一碼按鈕 事件
     public void btnBack(View view) {
@@ -140,27 +141,45 @@ public class MainActivity extends AppCompatActivity {
 
     // 送出按鈕 事件
     public void guess(View view) {
+        int offset = log.getLineCount()*log.getLineHeight();
+
         //檢查是否已經輸入四碼
         if(!(whichTextView()==4)){
            return;
         }
+        counter++;
+        Log.v("leo","counter = "+counter);
         String strInput = (String)num1.getText() +num2.getText()+
                 num3.getText()+num4.getText();
-        Log.v("leo","log:"+strInput);
+
 
 
         String result = checkAB(strInput);
-        log.append(strInput + " => " + result + "\n");
+
+        log.append(counter+" / "+ times +" : "+ strInput + " => " + result +"\n" );
+
+        if(offset>log.getHeight()){
+            log.scrollTo(0,offset-log.getHeight());
+        }
+
+
         btnClear(null);
+
+        if(result.equals("4A0B")){
+            showDialog(true,"You Win!");
+        }else if (counter == times ){
+            showDialog(false,"Answer is " +answer);
+        }
 
     }
 
-
     //開新局 ， 重玩
     private void initNewGame(){
+        counter = 0;
         answer = createAnswer(4);
         btnClear(null);
         log.setText("");
+        Log.v("leo","ans: "+answer);
 
     }
     //創造答案
@@ -198,4 +217,24 @@ public class MainActivity extends AppCompatActivity {
     public void replay(View view) {
         initNewGame();
     }
+
+    //跳出對話筐視窗
+    private void showDialog(boolean isWinner,String mesg){
+        //Builder又是一個類別（類別中的類別） ,new出來後傳遞參數的值： 存活在的這個Activity（this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(isWinner?"Winner":"Loser");
+        builder.setMessage(mesg);
+        //不能取消 (不能點空白取消或返回取消） 另增加ＯＫ按鈕 且新增定義在Dialog中的OnClickListener
+        builder.setCancelable(false);
+        builder.setPositiveButton(isWinner?"下一關":"重玩", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                initNewGame();
+            }
+        });
+        alertDialog = builder.create();
+        alertDialog.show();
+
+    }
 }
+
