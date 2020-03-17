@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -15,12 +16,17 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0;
-    private TextView num1,num2,num3,num4;
+    private TextView stage, num1,num2,num3,num4;
     private Button guess;
     private TextView log;
     private String answer;
     private AlertDialog alertDialog = null;
     private int counter = 0 ,times = 10;
+    private int nowStage = 1;
+
+
+    private SharedPreferences sp ;
+    private SharedPreferences.Editor editor ;
 
 
 
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        TextView  配置
+        stage = findViewById(R.id.stage);
         num1 = findViewById(R.id.num1);
         num2 = findViewById(R.id.num2);
         num3 = findViewById(R.id.num3);
@@ -52,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         log = findViewById(R.id.log);
         log.setMovementMethod(ScrollingMovementMethod.getInstance());
 
+        sp = getSharedPreferences("config",MODE_PRIVATE);
+        editor = sp.edit();
+
+
+
         initNewGame();
 
 
@@ -62,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
 //    多按鈕監聽 0-9按鈕
     public void btnNum(View view) {
+
         int n ;
         int i = whichTextView();
+
         int btn[] = {btn0.getId(),btn1.getId(),btn2.getId(),btn3.getId(),btn4.getId()
                      ,btn5.getId(),btn6.getId(),btn7.getId(),btn8.getId(),btn9.getId()};
 
@@ -75,12 +89,15 @@ public class MainActivity extends AppCompatActivity {
         //檢查是否重複按鈕
         CharSequence checkText = ""+n;
 
-        if (!num1.getText().equals(checkText) && !num2.getText().equals(checkText) && !num3.getText().equals(checkText) && !num4.getText().equals(checkText) ){
+        if (!num1.getText().equals(checkText) && !num2.getText().equals(checkText) &&
+                !num3.getText().equals(checkText) && !num4.getText().equals(checkText) ){
             chooseNum(n,i);
         }
+
     }
     //目前輸入幾個號碼
     public int whichTextView(){
+
         int i;
         int numTV[] = {num1.length(),num2.length(),num3.length(),num4.length()};
         for( i = 0 ; i < 4 ; i++){
@@ -92,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
     }
     //輸入按鈕
     public void chooseNum(int n,int i){
-
 
 
         String str[]={"0","1","2","3","4","5","6","7","8","9"};
@@ -141,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 送出按鈕 事件
     public void guess(View view) {
+
         int offset = log.getLineCount()*log.getLineHeight();
 
         //檢查是否已經輸入四碼
@@ -165,9 +182,16 @@ public class MainActivity extends AppCompatActivity {
 
         btnClear(null);
 
+        //跳出視窗 的方法 多增設下一關 or 關卡重置
         if(result.equals("4A0B")){
+            nowStage++;
+            editor.putInt("stage",nowStage);
+            editor.commit();
             showDialog(true,"You Win!");
         }else if (counter == times ){
+            nowStage=1;
+            editor.putInt("stage",1);
+            editor.commit();
             showDialog(false,"Answer is " +answer);
         }
 
@@ -175,6 +199,13 @@ public class MainActivity extends AppCompatActivity {
 
     //開新局 ， 重玩
     private void initNewGame(){
+        //關卡設定在sp內 如果一開始沒有就預設第一關
+        nowStage = sp.getInt("stage",1);
+        Log.v("leo","stage = "+stage);
+
+        stage.setText("第"+nowStage+"關");
+
+
         counter = 0;
         answer = createAnswer(4);
         btnClear(null);
@@ -215,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
 
     //重玩按鈕 事件
     public void replay(View view) {
+        //只要重玩關卡變回第一關
+        editor.putInt("stage",1);
+        editor.commit();
         initNewGame();
     }
 
@@ -226,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(mesg);
         //不能取消 (不能點空白取消或返回取消） 另增加ＯＫ按鈕 且新增定義在Dialog中的OnClickListener
         builder.setCancelable(false);
+        //如果isWinner 為真 則下一關 如果為否 則重玩 但是都指向 initNewGame
         builder.setPositiveButton(isWinner?"下一關":"重玩", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

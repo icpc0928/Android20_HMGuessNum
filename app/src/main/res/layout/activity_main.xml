@@ -167,10 +167,16 @@
         >
 
         <TextView
+            android:id="@+id/stage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ShowTime"
-            android:textSize="20sp"/>
+            android:textSize="30sp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignTop="@id/num1"
+            android:layout_alignBottom="@id/num1"
+            android:gravity="center"
+            />
         <TextView
             android:id="@+id/num4"
             android:layout_width="wrap_content"
