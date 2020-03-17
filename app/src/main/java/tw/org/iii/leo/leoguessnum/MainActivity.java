@@ -16,13 +16,13 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0;
-    private TextView stage, num1,num2,num3,num4;
+    private TextView stage,money, num1,num2,num3,num4;
     private Button guess;
     private TextView log;
     private String answer;
     private AlertDialog alertDialog = null;
     private int counter = 0 ,times = 10;
-    private int nowStage = 1;
+    private int nowStage = 1 , nowMoney = 0;
 
 
     private SharedPreferences sp ;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        TextView  配置
         stage = findViewById(R.id.stage);
+        money = findViewById(R.id.money);
         num1 = findViewById(R.id.num1);
         num2 = findViewById(R.id.num2);
         num3 = findViewById(R.id.num3);
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         sp = getSharedPreferences("config",MODE_PRIVATE);
         editor = sp.edit();
+
 
 
 
@@ -189,22 +191,25 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
             showDialog(true,"You Win!");
         }else if (counter == times ){
-            nowStage=1;
+            editor.putInt("money",(nowStage-1)*100);
             editor.putInt("stage",1);
             editor.commit();
+            nowStage=1;
             showDialog(false,"Answer is " +answer);
+
         }
 
     }
 
     //開新局 ， 重玩
     private void initNewGame(){
-        //關卡設定在sp內 如果一開始沒有就預設第一關
+        //關卡&金額 設定在sp內 如果一開始沒有就預設第一關 金額0
         nowStage = sp.getInt("stage",1);
+        nowMoney = sp.getInt("money",0);
         Log.v("leo","stage = "+stage);
 
         stage.setText("第"+nowStage+"關");
-
+        money.setText("$:"+nowMoney);
 
         counter = 0;
         answer = createAnswer(4);

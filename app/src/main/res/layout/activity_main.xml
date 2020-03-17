@@ -165,18 +165,36 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/top"
         >
-
-        <TextView
-            android:id="@+id/stage"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ShowTime"
-            android:textSize="30sp"
+            android:orientation="vertical"
             android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/num1"
             android:layout_alignTop="@id/num1"
             android:layout_alignBottom="@id/num1"
-            android:gravity="center"
-            />
+
+            >
+
+            <TextView
+                android:id="@+id/stage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="第一關"
+                android:textSize="18sp"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:textSize="18sp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+
         <TextView
             android:id="@+id/num4"
             android:layout_width="wrap_content"
@@ -184,7 +202,6 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/input_bg"
             android:gravity="center"
-
             android:textSize="24sp"
             android:layout_margin="10dp"
             />
@@ -195,7 +212,6 @@
             android:layout_toLeftOf="@id/num4"
             android:background="@drawable/input_bg"
             android:gravity="center"
-
             android:textSize="24sp"
             android:layout_margin="10dp"
             />
