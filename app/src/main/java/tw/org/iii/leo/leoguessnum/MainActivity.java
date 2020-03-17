@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         log.setText("");
         Log.v("leo","ans: "+answer);
 
+
     }
     //創造答案
     private String createAnswer(int d){
