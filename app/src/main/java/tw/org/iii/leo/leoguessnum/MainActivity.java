@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     // 送出按鈕 事件
     public void guess(View view) {
 
-        int offset = log.getLineCount()*log.getLineHeight();
+//  int offset = log.getLineCount()*log.getLineHeight();
 
         //檢查是否已經輸入四碼
         if(!(whichTextView()==4)){
@@ -171,15 +171,15 @@ public class MainActivity extends AppCompatActivity {
         String strInput = (String)num1.getText() +num2.getText()+
                 num3.getText()+num4.getText();
 
-
-
         String result = checkAB(strInput);
+        CharSequence tempLog = log.getText();
+        log.setText(counter + "／" + times + " : " + strInput + " => " + result + "\n" + tempLog);
+        log.scrollTo(0,0);
 
-        log.append(counter+" / "+ times +" : "+ strInput + " => " + result +"\n" );
-
-        if(offset>log.getHeight()){
-            log.scrollTo(0,offset-log.getHeight());
-        }
+// log區 自動移動到最下面 （目前不用 要往上推）
+//        if(offset>log.getHeight()){
+//            log.scrollTo(0,offset-log.getHeight());
+//        }
 
 
         btnClear(null);
