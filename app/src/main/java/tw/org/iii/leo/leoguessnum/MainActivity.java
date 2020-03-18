@@ -24,12 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private int counter = 0 ,times = 10;
     private int nowStage = 1 , nowMoney = 0;
 
-
     private SharedPreferences sp ;
     private SharedPreferences.Editor editor ;
-
-
-
 
 
     @Override
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         sp = getSharedPreferences("config",MODE_PRIVATE);
         editor = sp.edit();
-
 
 
 
@@ -198,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
             showDialog(false,"Answer is " +answer);
 
         }
-
     }
 
     //開新局 ， 重玩
