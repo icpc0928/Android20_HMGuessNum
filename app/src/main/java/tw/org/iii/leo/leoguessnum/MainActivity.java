@@ -21,11 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView log;
     private String answer;
     private AlertDialog alertDialog = null;
-    private int counter = 0 ,times = 10;
+    private int guessTimes[] = {15,14,13,12,11,10,9,8};
+    private int counter = 0 ,times = guessTimes[7];
     private int nowStage = 1 , nowMoney = 0;
 
     private SharedPreferences sp ;
     private SharedPreferences.Editor editor ;
+
+
 
 
     @Override
@@ -201,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
         nowStage = sp.getInt("stage",1);
         nowMoney = sp.getInt("money",0);
         Log.v("leo","stage = "+stage);
+
+        times =  guessTimes[(nowStage-1)>=7?7:(nowStage-1)]; //能猜的次數  關卡數字會取到該陣列內的index 在第八關之後都只剩下8次
+
 
         stage.setText("第"+nowStage+"關");
         money.setText("$:"+nowMoney);
